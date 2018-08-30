@@ -1,3 +1,3 @@
-composer.lock
-vendor/autoload.php vendor/bin vendor/composer vendor/deployer vendor/dflydev vendor/fxp vendor/http-interop vendor/lcobucci vendor/nyholm vendor/php-http vendor/pimple vendor/psr vendor/psr7-sessions vendor/symfony vendor/twig vendor/zendframework
-public_html/assets/vendor
+./composer.lock
+./vendor/*
+./public_html/assets/*
