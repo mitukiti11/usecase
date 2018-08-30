@@ -1,0 +1,69 @@
+{
+  "name": "mitukiti11/usecase",
+  "type": "project",
+  "authors": [
+	{
+	  "name": "mitukiti11",
+	  "email": "buffalo.rage@gmail.com"
+	}
+  ],
+  
+  "autoload": {
+	"psr-4": {
+	  "Project\\": "src/"
+	}
+  },
+  "optimize-autoloader": true,
+  "classmap-authoritative": true,
+  "apcu-autoloader": true,
+  
+  "minimum-stability": "stable",
+  
+  "require": {
+	"php": ">=5.4.0",
+	
+	"psr/log": "^1.0",
+	"psr/http-message": "^1.0",
+	"psr/container": "^1.0",
+	"psr/http-server-middleware": "^1.0",
+	
+	"twig/twig": "^2.0",
+	"symfony/http-foundation": "^4",
+	"zendframework/zend-diactoros": "^1.8",
+	"symfony/routing": "^4.1",
+    "symfony/psr-http-message-bridge": "^1.0",
+	"psr7-sessions/storageless": "^4",
+    "nyholm/psr7": "^0.3.0",
+	"pimple/pimple": "^3.2",
+  
+	"fxp/composer-asset-plugin": "^1.4",
+	"bower-asset/bootstrap": "^4",
+	"bower-asset/jquery": "^3",
+	"bower-asset/font-awesome": "^5",
+    "bower-asset/popper.js": "^1",
+    "deployer/deployer": "^6.3"
+  },
+  
+  "config": {
+	"fxp-asset": {
+	  "installer-paths": {
+		"npm-asset-library": "public_html/assets/vendor",
+		"bower-asset-library": "public_html/assets/vendor"
+	  },
+	  "ignore-files": {
+		"bower-asset/popper.js": [
+		  ".*", "*.md", "*.json", "yarn.lock", "popperjs.png", "docs", "packages"
+		],
+		"bower-asset/bootstrap" : [
+		  ".*", "*.md", "*.json", "CNAME", "Gemfile", "Gemfile.lock", "LICENSE", "package.js", "site", "scss", "nuget", "js", "build", "_config.yml"
+		],
+		"bower-asset/jquery" : [
+		  ".*", "*.md", "*.json", "*.txt", "src", "external", "src"
+		],
+		"bower-asset/font-awesome" : [
+		  ".*", "*.md", "*.json", "*.txt", "advanced-options", "svg-with-js", "use-on-desktop", "LICENSE.txt"
+		]
+	  }
+	}
+  }
+}
