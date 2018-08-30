@@ -34,7 +34,7 @@ echo <<< "HTML"
 	<body>
 		<textarea id="in"></textarea><button>input</button>
 		<textarea id="out"></textarea>
-		<textarea id="cache"></textareaid><button>cache</button>
+		<textarea id="cache"></textarea><button>cache</button>
 		
 	</body>
 </html>
