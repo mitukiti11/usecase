@@ -10,14 +10,34 @@ $s_in    = $_POST['in'];
 $s_out   = $_POST['out'];
 $s_cache = $_POST['cache'];
 
-$addresses = array();
-$a_cache2 = array();
-$a_cache = explode('\t', $cache);
-foreach ($a as $a_cache) {
-	$a_cache2[] = trim($a);
+// cache
+$a_cache_addresses = array();
+foreach (explode("\n", $s_cache) as $s_line) {
+	if (trim($s_line) == "") continue;
+	$d = explode("\t", $s_line);
+	$a_cache_addresses[$d[0]] = [$d[1], $d[2]];
 }
-$addresses[$a_cache2[0]] = [$a_cache2[1], $a_cache2[2]];
-var_dump($addresses);
+
+// input
+$a_input_addresses = array();
+foreach (explode("\n", $s_in) as $s_line) {
+        if (trim($s_line) == "") continue;
+        $a_input_addresses[] = trim($s_line);
+}
+
+// output
+$a_outputs = array();
+foreach ($a_input_addresses as $s_address) {
+	$r = $a_cache_addresses[$s_address];
+	$a_outputs[] = [$s_address, $r[0], $r[1]];
+}
+
+
+$outputs = array();
+foreach ($a_outputs as $data) {
+        $outputs[] = implode("\t", $data);
+}
+$s_output = implode("\n", $outputs);
 
 echo <<< "HTML"
 
@@ -43,13 +63,15 @@ echo <<< "HTML"
 	</head>
 	<body>
 		<form method="post">
-			<textarea name="in" id="in"></textarea>
+			<textarea name="in" id="in">{$s_in}</textarea>
 			<button>input</button>
-			<textarea name="out" id="out"></textarea>
-			<textarea name="cache" id="cache"></textarea>
+			<textarea name="out" id="out">{$s_output}</textarea>
+			<textarea name="cache" id="cache">{$s_cache}</textarea>
 			<button>cache</button>
 		</form>
 	</body>
 </html>
 
 HTML;
+
+
