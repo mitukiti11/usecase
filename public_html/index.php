@@ -33,7 +33,7 @@ echo <<< "HTML"
 	</head>
 	<body>
 		<textarea id="in"></textarea><button>input</button>
-		<textarea id="out">/textarea>
+		<textarea id="out"></textarea>
 		<textarea id="cache"></textareaid><button>cache</button>
 		
 	</body>
