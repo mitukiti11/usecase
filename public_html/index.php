@@ -6,8 +6,18 @@ $start = microtime(true);
 
 require ("{$root}/vendor/autoload.php");
 
+$s_in    = $_POST['in'];
+$s_out   = $_POST['out'];
+$s_cache = $_POST['cache'];
 
-
+$addresses = array();
+$a_cache2 = array();
+$a_cache = explode('\t', $cache);
+foreach ($a as $a_cache) {
+	$a_cache2[] = trim($a);
+}
+$addresses[$a_cache2[0]] = [$a_cache2[1], $a_cache2[2]];
+var_dump($addresses);
 
 echo <<< "HTML"
 
@@ -32,10 +42,13 @@ echo <<< "HTML"
 		
 	</head>
 	<body>
-		<textarea id="in"></textarea><button>input</button>
-		<textarea id="out"></textarea>
-		<textarea id="cache"></textarea><button>cache</button>
-		
+		<form method="post">
+			<textarea name="in" id="in"></textarea>
+			<button>input</button>
+			<textarea name="out" id="out"></textarea>
+			<textarea name="cache" id="cache"></textarea>
+			<button>cache</button>
+		</form>
 	</body>
 </html>
 
