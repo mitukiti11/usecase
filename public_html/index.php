@@ -1,10 +1,40 @@
 <?php
 
+use josegonzalez\Dotenv\Loader as DotEnvLoader;
+
 $pid = getmypid();
 $root = realpath(__DIR__."/..");
 $start = microtime(true);
 
 require ("{$root}/vendor/autoload.php");
+
+
+
+// mysqli
+if (file_exists("{$root}/.env")) {
+        $loader = (new DotEnvLoader("{$root}/.env"))->parse()->toEnv();
+}
+$mysqli = new mysqli($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']);
+if ($mysqli->connect_error) {
+	echo $mysqli->connect_error;
+ 	exit();
+}
+$mysqli->set_charset("utf8");
+
+
+
+
+
+
+$data_cache = array();
+$sql = "SELECT address, lat, lng FROM cache";
+if ($result = $mysqli->query($sql)) {
+    while ($row = $result->fetch_assoc()) {
+        $data_cache[$row['address']] = [$row['lat'], $row['lng']];
+    }
+    $result->close();
+}
+
 
 $s_in    = $_POST['in'];
 $s_out   = $_POST['out'];
@@ -14,9 +44,16 @@ $s_cache = $_POST['cache'];
 $a_cache_addresses = array();
 foreach (explode("\n", $s_cache) as $s_line) {
 	if (trim($s_line) == "") continue;
-	$d = explode("\t", $s_line);
-	$a_cache_addresses[$d[0]] = [$d[1], $d[2]];
+
+        $d = explode("\t", $s_line);
+	if (array_key_exists($d[0], $data_cache)) continue;
+
+	$data_cache[$d[0]] = [$d[1], $d[2]];
+	
+	$sql = "INSERT INTO cache ( address, lat, lng) VALUES (\"{$d[0]}\", \"{$d[1]}\", \"{$d[2]}\");";
+	$res = $mysqli->query($sql);
 }
+$a_cache_addresses = $data_cache;
 
 // input
 $a_input_addresses = array();
@@ -28,6 +65,10 @@ foreach (explode("\n", $s_in) as $s_line) {
 // output
 $a_outputs = array();
 foreach ($a_input_addresses as $s_address) {
+	if (! array_key_exists($s_address, $data_cache)) {
+		$sql = "INSERT INTO address (address) VALUES (\"{$s_address}\");";
+        	$res = $mysqli->query($sql);
+	}
 	$r = $a_cache_addresses[$s_address];
 	$a_outputs[] = [$s_address, $r[0], $r[1]];
 }

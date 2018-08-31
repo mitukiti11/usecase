@@ -41,7 +41,8 @@
 	"bower-asset/jquery": "^3",
 	"bower-asset/font-awesome": "^5",
     "bower-asset/popper.js": "^1",
-    "deployer/deployer": "^6.3"
+    "deployer/deployer": "^6.3",
+    "josegonzalez/dotenv": "^3.2"
   },
   
   "config": {
