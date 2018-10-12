@@ -14,10 +14,10 @@ set('git_tty', true);
 
 // Shared files/dirs between deploys 
 set('shared_files', []);
-set('shared_dirs', []);
+set('shared_dirs', ['data']);
 
 // Writable dirs by web server 
-set('writable_dirs', []);
+set('writable_dirs', ['data']);
 
 set('ssh_type', 'native');
 set('ssh_multiplexing', false);
